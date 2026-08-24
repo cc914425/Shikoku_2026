@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>高松・山陽自駕 7天6夜行程</title>
+    <style>
+        :root {
+            --primary-color: #2b5c8f;
+            --secondary-color: #e2f0d9;
+            --accent-color: #e67e22;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border-color: #e9ecef;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 70px;
+        }
+
+        /* Header Header Area */
+        header {
+            background: linear-gradient(135deg, #1b365d, #2b5c8f);
+            color: white;
+            padding: 20px 16px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        header p {
+            font-size: 0.8rem;
+            opacity: 0.85;
+        }
+
+        /* Tab Navigation Bar */
+        .day-selector {
+            display: flex;
+            overflow-x: auto;
+            background: #fff;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            scrollbar-width: none;
+        }
+        .day-selector::-webkit-scrollbar { display: none; }
+
+        .day-btn {
+            flex: 0 0 auto;
+            padding: 6px 14px;
+            margin-right: 8px;
+            border-radius: 20px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .day-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Main Content Container */
+        .container {
+            padding: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Timeline Card Design */
+        .timeline-item {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 24px;
+            bottom: -16px;
+            width: 2px;
+            background: #cbd5e1;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 1px #cbd5e1;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-time {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            border-radius: 4px;
+            background: #f1f5f9;
+            color: #475569;
+            margin-right: 4px;
+        }
+
+        .badge.drive { background: #fee2e2; color: #991b1b; }
+        .badge.booked { background: #dcfce7; color: #166534; }
+
+        .btn-map {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            background: #e0f2fe;
+            color: #0369a1;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Informational Lists & Tables */
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-card h3 {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            font-size: 0.88rem;
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .info-list li:last-child { border-bottom: none; }
+
+        /* Bottom Fixed Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #ffffff;
+            display: flex;
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .nav-item.active {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>香川・岡山・姬路自駕之旅</h1>
+        <p>📅 2026/09/19 - 09/25 (7天6夜)</p>
+    </header>
+
+    <!-- Main Section: Daily Itinerary -->
+    <div id="section-daily" class="section-container">
+        <div class="day-selector">
+            <button class="day-btn active" onclick="switchDay(1)">Day 1 (9/19)</button>
+            <button class="day-btn" onclick="switchDay(2)">Day 2 (9/20)</button>
+            <button class="day-btn" onclick="switchDay(3)">Day 3 (9/21)</button>
+            <button class="day-btn" onclick="switchDay(4)">Day 4 (9/22)</button>
+            <button class="day-btn" onclick="switchDay(5)">Day 5 (9/23)</button>
+            <button class="day-btn" onclick="switchDay(6)">Day 6 (9/24)</button>
+            <button class="day-btn" onclick="switchDay(7)">Day 7 (9/25)</button>
+        </div>
+
+        <div class="container">
+            <!-- Day 1 -->
+            <div id="day-1" class="tab-content active">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">15:45 - 19:00</div>
+                        <div class="card-title">班機起飛抵達</div>
+                        <div class="card-desc">中華航空 CI 0178 (桃園 T1 👉 高松 PUS)</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">19:40 - 20:25</div>
+                        <div class="card-title">高松機場利木津巴士</div>
+                        <div class="card-desc">搭乘機場巴士前往市區（使用機場來回券）</div>
+                        <a href="https://maps.google.com/?q=Takamatsu+Station" class="btn-map" target="_blank">📍 高松車站導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">20:25 - 20:40</div>
+                        <div class="card-title">飯店 Check-in</div>
+                        <div class="card-desc">入住 コリドール西内町</div>
+                        <a href="https://maps.google.com/?q=香川県高松市西内町7-6" class="btn-map" target="_blank">📍 飯店導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">20:40 - 22:00</div>
+                        <div class="card-title">高松丸龜町商店街</div>
+                        <div class="card-desc">散步、逛街採買與吃宵夜</div>
+                        <a href="https://maps.google.com/?q=Takamatsu+Marugamemachi+Shopping+Street" class="btn-map" target="_blank">📍 商店街導航</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div id="day-2" class="tab-content">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">08:30 - 09:30</div>
+                        <div class="card-title">高松港搭船前往小豆島</div>
+                        <div class="card-desc">前往土庄港準備參加一日遊</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">10:00 - 16:15</div>
+                        <div class="card-title">小豆島一日遊行程</div>
+                        <span class="badge booked">已預訂套票</span>
+                        <div class="card-desc">
+                            10:30 大觀音 (40分)<br>
+                            11:30 寒霞溪 (60分)<br>
+                            13:10 二十四隻眼睛電影村 (60分)<br>
+                            14:20 一德庵 (20分)<br>
+                            14:50 橄欖公園 (30分)
+                        </div>
+                        <a href="https://maps.google.com/?q=Tonosho+Port+Tourist+Center" class="btn-map" target="_blank">📍 土庄遊客中心導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">20:00</div>
+                        <div class="card-title">Ito Loin 燒肉晚餐</div>
+                        <span class="badge booked">已預訂 20:00</span>
+                        <a href="https://maps.google.com/?q=Ito+Loin+Takamatsu" class="btn-map" target="_blank">📍 餐廳導航</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div id="day-3" class="tab-content">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">09:00 - 10:30</div>
+                        <div class="card-title">田村神社</div>
+                        <div class="card-desc">搭乘琴電琴平線至「一宮站」步行前往</div>
+                        <a href="https://maps.google.com/?q=Tamura+Shrine+Kagawa" class="btn-map" target="_blank">📍 田村神社導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">10:30 - 13:00</div>
+                        <div class="card-title">特別名勝 栗林公園</div>
+                        <a href="https://maps.google.com/?q=Ritsurin+Garden" class="btn-map" target="_blank">📍 栗林公園導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">13:30 - 15:30</div>
+                        <div class="card-title">高松城（玉藻公園）</div>
+                        <a href="https://maps.google.com/?q=Takamatsu+Castle" class="btn-map" target="_blank">📍 高松城導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">15:30 - 17:00</div>
+                        <div class="card-title">Shikoku Shop 88</div>
+                        <div class="card-desc">採買四國名產與伴手禮</div>
+                        <a href="https://maps.google.com/?q=Shikoku+Shop+88" class="btn-map" target="_blank">📍 Shikoku Shop 88 導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">17:30 - 18:30</div>
+                        <div class="card-title">換飯店入住 yado milagre</div>
+                        <a href="https://maps.google.com/?q=香川県高松市塩上町11-12" class="btn-map" target="_blank">📍 新飯店導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">19:00</div>
+                        <div class="card-title">晚餐：手打烏龍麵 鶴丸</div>
+                        <a href="https://maps.google.com/?q=Tsurumaru+Udon+Takamatsu" class="btn-map" target="_blank">📍 鶴丸烏龍麵導航</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div id="day-4" class="tab-content">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">08:00 - 08:30</div>
+                        <div class="card-title">高松市區牽車自駕</div>
+                        <span class="badge drive">自駕第 1 天</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">09:30 - 13:30</div>
+                        <div class="card-title">金刀比羅宮</div>
+                        <div class="card-desc">參道店家可租借登山杖（約 100 日幣）</div>
+                        <a href="https://maps.google.com/?q=Kotohira-gu" class="btn-map" target="_blank">📍 金刀比羅宮導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">15:00 - 18:30</div>
+                        <div class="card-title">父母濱海岸</div>
+                        <div class="card-desc">拍攝天空之鏡與絕美夕陽</div>
+                        <a href="https://maps.google.com/?q=Chichibugahama+Beach" class="btn-map" target="_blank">📍 父母濱導航</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div id="day-5" class="tab-content">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">09:00 - 12:00</div>
+                        <div class="card-title">岡山城</div>
+                        <span class="badge drive">跨海自駕</span>
+                        <a href="https://maps.google.com/?q=Okayama+Castle" class="btn-map" target="_blank">📍 岡山城導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">12:30 - 14:00</div>
+                        <div class="card-title">壽喜燒 ひとり鍋</div>
+                        <span class="badge booked">已預訂 12:30</span>
+                        <a href="https://maps.google.com/?q=Sukiyaki+Hitorinabe+Okayama" class="btn-map" target="_blank">📍 餐廳導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">14:30 - 15:15</div>
+                        <div class="card-title">水果小町 霜淇淋</div>
+                        <a href="https://maps.google.com/?q=Parlor+Fruit+Komachi" class="btn-map" target="_blank">📍 水果小町導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">15:30 - 17:30</div>
+                        <div class="card-title">旧野﨑家住宅</div>
+                        <a href="https://maps.google.com/?q=Former+Nozaki+Residence" class="btn-map" target="_blank">📍 舊野崎家導航</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 6 -->
+            <div id="day-6" class="tab-content">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">09:00 - 12:00</div>
+                        <div class="card-title">姬路城</div>
+                        <span class="badge drive">長途自駕</span>
+                        <a href="https://maps.google.com/?q=Himeji+Castle" class="btn-map" target="_blank">📍 姬路城導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">12:00 - 13:30</div>
+                        <div class="card-title">午餐：姬路城下町 / 淡路漢堡</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">15:00 - 16:30</div>
+                        <div class="card-title">鳴門漩渦 (Wonder鳴門號)</div>
+                        <a href="https://maps.google.com/?q=Naruto+Whirlpools+Wonder+Naruto" class="btn-map" target="_blank">📍 鳴門觀光船導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">19:00</div>
+                        <div class="card-title">高松還車</div>
+                        <span class="badge drive">租車結束</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div id="day-7" class="tab-content">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">09:00 - 11:30</div>
+                        <div class="card-title">高松機場報到與購物</div>
+                        <a href="https://maps.google.com/?q=Takamatsu+Airport" class="btn-map" target="_blank">📍 高松機場導航</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-time">11:30 - 13:15</div>
+                        <div class="card-title">返台班機</div>
+                        <div class="card-desc">中華航空 CI 0279 (高松 TAK 👉 桃園 T1)</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Section: Stay & Travel Info -->
+    <div id="section-info" class="section-container" style="display: none;">
+        <div class="container">
+            <div class="info-card">
+                <h3>🏨 住宿資訊</h3>
+                <div style="margin-bottom: 12px;">
+                    <strong>9/19 - 9/21 (2晚)</strong><br>
+                    コリドール西内町<br>
+                    <a href="https://maps.google.com/?q=香川県高松市西内町7-6" class="btn-map" target="_blank">📍 Google Map</a>
+                </div>
+                <div>
+                    <strong>9/21 - 9/25 (4晚)</strong><br>
+                    天然石 ミラーグリin高松・yado milagre<br>
+                    <a href="https://maps.google.com/?q=香川県高松市塩上町11-12" class="btn-map" target="_blank">📍 Google Map</a>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>✈️ 航班資訊</h3>
+                <ul class="info-list">
+                    <li><span>去程 CI 0178</span> <span>9/19 15:45 - 19:00</span></li>
+                    <li><span>回程 CI 0279</span> <span>9/25 11:30 - 13:15</span></li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>🚗 租車資訊</h3>
+                <ul class="info-list">
+                    <li><span>租車期間</span> <span>9/22 08:00 ～ 9/24 19:00</span></li>
+                    <li><span>備註</span> <span>帶台灣駕照正本 + 譯本</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section: Checklist -->
+    <div id="section-pack" class="section-container" style="display: none;">
+        <div class="container">
+            <div class="info-card">
+                <h3>🧳 必帶清單</h3>
+                <ul class="info-list">
+                    <li><span>護照 (效期6個月以上)</span> <input type="checkbox"></li>
+                    <li><span>台灣駕照 + 國際駕照/日文譯本</span> <input type="checkbox"></li>
+                    <li><span>日圓現金 & 信用卡</span> <input type="checkbox"></li>
+                    <li><span>eSIM / Wi-Fi 分享器</span> <input type="checkbox"></li>
+                    <li><span>個人常備藥品</span> <input type="checkbox"></li>
+                    <li><span>充電線與行動電源</span> <input type="checkbox"></li>
+                    <li><span> Visit Japan Web 填寫 completed</span> <input type="checkbox"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="navTo('daily', this)">
+            <span class="nav-icon">📅</span>
+            <span>每日行程</span>
+        </button>
+        <button class="nav-item" onclick="navTo('info', this)">
+            <span class="nav-icon">🏨</span>
+            <span>住宿與交通</span>
+        </button>
+        <button class="nav-item" onclick="navTo('pack', this)">
+            <span class="nav-icon">🧳</span>
+            <span>準備清單</span>
+        </button>
+    </nav>
+
+    <script>
+        function switchDay(dayNum) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.classList.remove('active'));
+
+            // Deactivate all day buttons
+            const buttons = document.querySelectorAll('.day-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            // Activate specific tab & button
+            document.getElementById('day-' + dayNum).classList.add('active');
+            buttons[dayNum - 1].classList.add('active');
+        }
+
+        function navTo(sectionId, btn) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section-container');
+            sections.forEach(s => s.style.display = 'none');
+
+            // Deactivate bottom nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById('section-' + sectionId).style.display = 'block';
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+

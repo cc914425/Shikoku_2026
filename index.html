@@ -214,6 +214,7 @@
             color: #cbd5e1;
             font-size: 1.1rem;
             transition: color 0.2s;
+            user-select: none;
         }
 
         .star.active {
@@ -846,22 +847,27 @@
             btn.classList.add('active');
         }
 
-        // 星等評分系統元件
+        // 星等評分系統元件 (支援取消評分功能)
         document.addEventListener("DOMContentLoaded", function() {
             const starContainers = document.querySelectorAll('.stars');
             starContainers.forEach(container => {
                 const id = container.getAttribute('data-id');
-                const savedRating = localStorage.getItem('rating_' + id) || 0;
+                let currentRating = parseInt(localStorage.getItem('rating_' + id) || '0', 10);
                 
                 for (let i = 1; i <= 5; i++) {
                     const star = document.createElement('span');
                     star.classList.add('star');
                     star.innerHTML = '★';
-                    if (i <= savedRating) star.classList.add('active');
+                    if (i <= currentRating) star.classList.add('active');
                     
                     star.addEventListener('click', function() {
-                        localStorage.setItem('rating_' + id, i);
-                        updateStars(container, i);
+                        if (currentRating === i) {
+                            currentRating = 0; // 再次點擊已選取的星等即取消
+                        } else {
+                            currentRating = i;
+                        }
+                        localStorage.setItem('rating_' + id, currentRating);
+                        updateStars(container, currentRating);
                     });
                     
                     container.appendChild(star);

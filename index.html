@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>高松 7天6夜行程</title>
+    <title>高松・山陽自駕 7天6夜行程</title>
     <style>
         :root {
             --primary-color: #2b5c8f;
@@ -161,6 +161,7 @@
         .badge.drive { background: #fee2e2; color: #991b1b; }
         .badge.booked { background: #dcfce7; color: #166534; }
         .badge.park { background: #fef3c7; color: #92400e; }
+        .badge.free { background: #e0f2fe; color: #0369a1; font-weight: 700; }
 
         .btn-group {
             display: flex;
@@ -184,6 +185,39 @@
         .btn-park {
             background: #fef3c7;
             color: #92400e;
+        }
+
+        /* 滿意度評分區塊 */
+        .rating-box {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.82rem;
+        }
+
+        .rating-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+            cursor: pointer;
+        }
+
+        .star {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+
+        .star.active {
+            color: #f59e0b;
         }
 
         .info-card {
@@ -299,7 +333,8 @@
                     <div class="card">
                         <div class="card-time">19:40 - 20:25</div>
                         <div class="card-title">高松機場利木津巴士</div>
-                        <div class="card-desc">搭乘機場巴士前往市區</div>
+                        <span class="badge free">華航贈券 Free</span>
+                        <div class="card-desc">使用華航贈送之「機場市區來回券」搭乘</div>
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Takamatsu+Station" class="btn-map" target="_blank">📍 高松車站導航</a>
                         </div>
@@ -324,6 +359,10 @@
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Takamatsu+Marugamemachi+Shopping+Street" class="btn-map" target="_blank">📍 商店街導航</a>
                         </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="marugame-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="marugame-m"></div></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -335,6 +374,8 @@
                     <div class="card">
                         <div class="card-time">08:30 - 09:30</div>
                         <div class="card-title">高松港搭船前往小豆島</div>
+                        <span class="badge free">華航贈券 Free</span>
+                        <div class="card-desc">使用華航贈送之「小豆島一般船來回船票」</div>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -347,6 +388,10 @@
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Tonosho+Port+Tourist+Center" class="btn-map" target="_blank">📍 土庄遊客中心</a>
                         </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="shodoshima-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="shodoshima-m"></div></div>
+                        </div>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -357,6 +402,10 @@
                         <span class="badge booked">已預訂 20:00</span>
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Ito+Loin+Takamatsu" class="btn-map" target="_blank">📍 餐廳導航</a>
+                        </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="itoloin-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="itoloin-m"></div></div>
                         </div>
                     </div>
                 </div>
@@ -372,6 +421,10 @@
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Tamura+Shrine+Kagawa" class="btn-map" target="_blank">📍 田村神社導航</a>
                         </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="tamura-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="tamura-m"></div></div>
+                        </div>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -379,8 +432,14 @@
                     <div class="card">
                         <div class="card-time">10:30 - 13:00</div>
                         <div class="card-title">特別名勝 栗林公園</div>
+                        <span class="badge free">華航贈券 Free</span>
+                        <div class="card-desc">使用華航贈送之「栗林公園門票」免費入場</div>
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Ritsurin+Garden" class="btn-map" target="_blank">📍 栗林公園導航</a>
+                        </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="ritsurin-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="ritsurin-m"></div></div>
                         </div>
                     </div>
                 </div>
@@ -391,6 +450,10 @@
                         <div class="card-title">高松城（玉藻公園）</div>
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Takamatsu+Castle" class="btn-map" target="_blank">📍 高松城導航</a>
+                        </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="takamatsujyo-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="takamatsujyo-m"></div></div>
                         </div>
                     </div>
                 </div>
@@ -422,6 +485,10 @@
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Tsurumaru+Udon+Takamatsu" class="btn-map" target="_blank">📍 鶴丸烏龍麵導航</a>
                         </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="tsurumaru-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="tsurumaru-m"></div></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -433,7 +500,7 @@
                     <div class="card">
                         <div class="card-time">08:00 - 08:30</div>
                         <div class="card-title">高松市區牽車自駕</div>
-                        <span class="badge drive">自駕 Day 1</span>
+                        <span class="badge drive">自駕 Day 1 (含最高全險)</span>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -447,6 +514,10 @@
                             <a href="https://maps.google.com/?q=Kotohira-gu" class="btn-map" target="_blank">📍 景點導航</a>
                             <a href="https://maps.google.com/?q=Kotohira+Parking" class="btn-map btn-park" target="_blank">🅿️ 參道周邊停車場</a>
                         </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="kotohira-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="kotohira-m"></div></div>
+                        </div>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -459,6 +530,10 @@
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Chichibugahama+Beach" class="btn-map" target="_blank">📍 景點導航</a>
                             <a href="https://maps.google.com/?q=Chichibugahama+Parking" class="btn-map btn-park" target="_blank">🅿️ 父母濱停車場</a>
+                        </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="chichibu-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="chichibu-m"></div></div>
                         </div>
                     </div>
                 </div>
@@ -477,6 +552,10 @@
                             <a href="https://maps.google.com/?q=Okayama+Castle" class="btn-map" target="_blank">📍 景點導航</a>
                             <a href="https://maps.google.com/?q=Ujo+Park+Parking" class="btn-map btn-park" target="_blank">🅿️ 烏城公園停車場</a>
                         </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="okayamajyo-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="okayamajyo-m"></div></div>
+                        </div>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -487,6 +566,10 @@
                         <span class="badge booked">已預訂 12:30</span>
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Sukiyaki+Hitorinabe+Okayama" class="btn-map" target="_blank">📍 餐廳導航</a>
+                        </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="sukiyaki-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="sukiyaki-m"></div></div>
                         </div>
                     </div>
                 </div>
@@ -510,6 +593,10 @@
                             <a href="https://maps.google.com/?q=Former+Nozaki+Residence" class="btn-map" target="_blank">📍 景點導航</a>
                             <a href="https://maps.google.com/?q=Former+Nozaki+Residence+Parking" class="btn-map btn-park" target="_blank">🅿️ 野崎家停車場</a>
                         </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="nozaki-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="nozaki-m"></div></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -526,6 +613,10 @@
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Himeji+Castle" class="btn-map" target="_blank">📍 景點導航</a>
                             <a href="https://maps.google.com/?q=Otemon+Parking+Himeji" class="btn-map btn-park" target="_blank">🅿️ 大手門停車場</a>
+                        </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="himeji-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="himeji-m"></div></div>
                         </div>
                     </div>
                 </div>
@@ -545,6 +636,10 @@
                         <div class="btn-group">
                             <a href="https://maps.google.com/?q=Naruto+Whirlpools+Wonder+Naruto" class="btn-map" target="_blank">📍 景點導航</a>
                             <a href="https://maps.google.com/?q=Naruto+Kanko+Kisen+Parking" class="btn-map btn-park" target="_blank">🅿️ 觀光船停車場</a>
+                        </div>
+                        <div class="rating-box">
+                            <div class="rating-row"><span>👩 滿意度：</span><div class="stars" data-id="naruto-w"></div></div>
+                            <div class="rating-row"><span>👦 滿意度：</span><div class="stars" data-id="naruto-m"></div></div>
                         </div>
                     </div>
                 </div>
@@ -590,52 +685,56 @@
                 
                 <div style="margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
                     <strong>Day 1 (9/19) - 抵達高松</strong>
-                    <div class="cost-item"><span>機場巴士來回券 (2人)</span><span>¥4,000</span></div>
+                    <div class="cost-item"><span>機場巴士來回 (華航贈送)</span><span style="color:#0369a1; font-weight:bold;">¥0 (免費)</span></div>
                     <div class="cost-item"><span>晚餐宵夜</span><span>¥3,500</span></div>
-                    <div class="cost-total">D1 小計：約 ¥7,500 日圓</div>
+                    <div class="cost-total">D1 小計：約 ¥3,500 日圓</div>
                 </div>
 
                 <div style="margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
                     <strong>Day 2 (9/20) - 小豆島與燒肉</strong>
-                    <div class="cost-item"><span>小豆島一日遊套票 (2人)</span><span>¥13,000</span></div>
+                    <div class="cost-item"><span>小豆島船票 (華航贈送)</span><span style="color:#0369a1; font-weight:bold;">¥0 (免費)</span></div>
+                    <div class="cost-item"><span>小豆島一日遊島上交通套票 (2人)</span><span>¥13,000</span></div>
                     <div class="cost-item"><span>Ito Loin 燒肉晚餐 (預估)</span><span>¥14,000</span></div>
                     <div class="cost-total">D2 小計：約 ¥27,000 日圓</div>
                 </div>
 
                 <div style="margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
                     <strong>Day 3 (9/21) - 高松市區巡禮</strong>
+                    <div class="cost-item"><span>栗林公園門票 (華航贈送)</span><span style="color:#0369a1; font-weight:bold;">¥0 (免費)</span></div>
                     <div class="cost-item"><span>琴電交通車資</span><span>¥1,500</span></div>
-                    <div class="cost-item"><span>栗林公園 + 高松城門票 (2人)</span><span>¥1,400</span></div>
+                    <div class="cost-item"><span>高松城門票 (2人)</span><span>¥400</span></div>
                     <div class="cost-item"><span>鶴丸烏龍麵晚餐</span><span>¥2,500</span></div>
-                    <div class="cost-total">D3 小計：約 ¥5,400 日圓</div>
+                    <div class="cost-total">D3 小計：約 ¥4,400 日圓</div>
                 </div>
 
                 <div style="margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
                     <strong>Day 4 (9/22) - 自駕琴平與父母濱</strong>
-                    <div class="cost-item"><span>租車費 (3天均分)</span><span>¥8,000</span></div>
+                    <div class="cost-item"><span>租車費 (含每日最高全險，3天均分)</span><span>¥11,000</span></div>
                     <div class="cost-item"><span>金刀比羅宮停車 + 登山杖</span><span>¥700</span></div>
                     <div class="cost-item"><span>油資 + 過路費</span><span>¥2,000</span></div>
                     <div class="cost-item"><span>餐費</span><span>¥5,000</span></div>
-                    <div class="cost-total">D4 小計：約 ¥15,700 日圓</div>
+                    <div class="cost-total">D4 小計：約 ¥18,700 日圓</div>
                 </div>
 
                 <div style="margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
                     <strong>Day 5 (9/23) - 跨海岡山行</strong>
+                    <div class="cost-item"><span>租車費 (含每日最高全險，3天均分)</span><span>¥11,000</span></div>
                     <div class="cost-item"><span>瀬戶大橋過路費 (往返)</span><span>¥8,600</span></div>
                     <div class="cost-item"><span>岡山城 + 舊野崎家門票 (2人)</span><span>¥1,800</span></div>
                     <div class="cost-item"><span>岡山城/倉敷停車費</span><span>¥1,200</span></div>
                     <div class="cost-item"><span>壽喜燒 + 甜點 (預估)</span><span>¥8,000</span></div>
-                    <div class="cost-total">D5 小計：約 ¥19,600 日圓</div>
+                    <div class="cost-total">D5 小計：約 ¥30,600 日圓</div>
                 </div>
 
                 <div style="margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
                     <strong>Day 6 (9/24) - 姬路城與鳴門漩渦</strong>
+                    <div class="cost-item"><span>租車費 (含每日最高全險，3天均分)</span><span>¥11,000</span></div>
                     <div class="cost-item"><span>高速公路 ETC 過路費</span><span>¥9,500</span></div>
                     <div class="cost-item"><span>加油費用</span><span>¥4,500</span></div>
                     <div class="cost-item"><span>姬路城門票 + 鳴門船票 (2人)</span><span>¥5,600</span></div>
                     <div class="cost-item"><span>停車費</span><span>¥1,500</span></div>
                     <div class="cost-item"><span>午晚餐</span><span>¥6,000</span></div>
-                    <div class="cost-total">D6 小計：約 ¥27,100 日圓</div>
+                    <div class="cost-total">D6 小計：約 ¥38,100 日圓</div>
                 </div>
 
                 <div>
@@ -645,7 +744,7 @@
                 </div>
 
                 <div style="margin-top: 16px; background: #fee2e2; padding: 12px; border-radius: 8px; text-align: center;">
-                    <strong style="color: #991b1b; font-size: 1.05rem;">7天總預估公費花費（不含住宿與購物）：<br>約 ¥104,300 日圓 (約 NT$ 22,000)</strong>
+                    <strong style="color: #991b1b; font-size: 1.05rem;">7天總預估公費花費（含含險租車，不含住宿購物）：<br>約 ¥124,300 日圓 (約 NT$ 26,000)</strong>
                 </div>
             </div>
         </div>
@@ -680,6 +779,7 @@
                 <h3>🚗 租車資訊</h3>
                 <ul class="info-list">
                     <li><span>租車期間</span> <span>9/22 08:00 ～ 9/24 19:00</span></li>
+                    <li><span>保險方案</span> <span style="color:#166534; font-weight:bold;">已包含最高全險 (NOC免除)</span></li>
                     <li><span>必帶文件</span> <span>台灣駕照正本 + 駕照日文譯本</span></li>
                 </ul>
             </div>
@@ -694,10 +794,11 @@
                 <ul class="info-list">
                     <li><span>護照 (效期6個月以上)</span> <input type="checkbox"></li>
                     <li><span>台灣駕照 + 日文譯本</span> <input type="checkbox"></li>
+                    <li><span>華航三大免費實體票券</span> <input type="checkbox"></li>
                     <li><span>日圓現金 & 信用卡</span> <input type="checkbox"></li>
                     <li><span>eSIM / Wi-Fi 卡</span> <input type="checkbox"></li>
                     <li><span>個人常備藥品</span> <input type="checkbox"></li>
-                    <li><span> Visit Japan Web 填寫 completed</span> <input type="checkbox"></li>
+                    <li><span>Visit Japan Web 填寫 completed</span> <input type="checkbox"></li>
                 </ul>
             </div>
         </div>
@@ -744,6 +845,40 @@
             document.getElementById('section-' + sectionId).style.display = 'block';
             btn.classList.add('active');
         }
+
+        // 星等評分系統元件
+        document.addEventListener("DOMContentLoaded", function() {
+            const starContainers = document.querySelectorAll('.stars');
+            starContainers.forEach(container => {
+                const id = container.getAttribute('data-id');
+                const savedRating = localStorage.getItem('rating_' + id) || 0;
+                
+                for (let i = 1; i <= 5; i++) {
+                    const star = document.createElement('span');
+                    star.classList.add('star');
+                    star.innerHTML = '★';
+                    if (i <= savedRating) star.classList.add('active');
+                    
+                    star.addEventListener('click', function() {
+                        localStorage.setItem('rating_' + id, i);
+                        updateStars(container, i);
+                    });
+                    
+                    container.appendChild(star);
+                }
+            });
+
+            function updateStars(container, rating) {
+                const stars = container.querySelectorAll('.star');
+                stars.forEach((s, idx) => {
+                    if (idx < rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
